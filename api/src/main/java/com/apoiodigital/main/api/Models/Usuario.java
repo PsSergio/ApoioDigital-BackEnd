@@ -1,6 +1,7 @@
 package com.apoiodigital.main.api.Models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +12,13 @@ import java.util.UUID;
 @Setter
 public class Usuario {
 
+    @Id
     private UUID id;
+
     private String nome;
+
     private String telefone;
+
     private String senha;
 
 }
