@@ -5,10 +5,14 @@ create table Usuario (
 
 	id varchar(36) PRIMARY KEY,
 	nome varchar(50),
-	senha varchar(30),
+	senha varchar(255),
 	telefone varchar(11) UNIQUE
 
 )
+
+Alter table Usuario Modify Column senha varchar(255)
+
+select * from Usuario
 
 create table Requisicao (
 
