@@ -17,9 +17,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<Void> CriarConta(@RequestBody Usuario usuario) {
-        usuarioService.salvarUsuario(usuario);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Usuario> CriarConta(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok().body(usuarioService.salvarUsuario(usuario));
     }
 
     @GetMapping("/login")
