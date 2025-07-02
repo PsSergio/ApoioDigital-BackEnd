@@ -2,11 +2,13 @@ package com.apoiodigital.main.api.Services;
 
 import com.apoiodigital.main.api.Dtos.RequisicaoInputDTO;
 import com.apoiodigital.main.api.Models.Requisicao;
+import com.apoiodigital.main.api.Models.Usuario;
 import com.apoiodigital.main.api.Repositories.RequisicaoRepository;
 import com.apoiodigital.main.api.Repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RequisicaoService {
@@ -26,5 +28,9 @@ public class RequisicaoService {
         requisicao.setPrompt(dto.prompt());
         requisicao.setUsuario(usuarioRepository.findById(dto.id_usuario()).get());
         return requisicaoRepository.save(requisicao);
+    }
+
+    public List<Requisicao> carregarRequisicaoPeloUsuario(Usuario usuario){
+        return requisicaoRepository.findByUsuario(usuario);
     }
 }

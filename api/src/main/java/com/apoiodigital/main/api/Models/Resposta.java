@@ -8,15 +8,14 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "Requisicao")
-public class Requisicao {
+@Table(name = "Resposta")
+public class Resposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,14 +24,16 @@ public class Requisicao {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", columnDefinition = "VARCHAR(36)")
+    @JoinColumn(name = "id_requisicao", columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @JsonIgnore
-    private Usuario usuario;
+    private Requisicao requsicao;
 
-    @Column(name="prompt", columnDefinition = "VARCHAR(500)")
-    private String prompt;
+    @Column(name = "mensagem", columnDefinition = "VARCHAR(500)")
+    private String mensagem;
 
-    @Column(name="timeStamp", columnDefinition = "DATETIME")
+    @Column(name="timestamp", columnDefinition = "DATETIME")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private LocalDateTime timeStamp;
+    private LocalDateTime timestamp;
+
 }
