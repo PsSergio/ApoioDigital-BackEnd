@@ -1,5 +1,6 @@
 package com.apoiodigital.main.api.Models;
 
+import com.apoiodigital.main.api.Dtos.IdentifierComponentDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
