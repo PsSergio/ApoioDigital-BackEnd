@@ -1,6 +1,8 @@
 create database ApoioDigitalDB
 use ApoioDigitalDB
 
+
+
 create table Usuario (
 
 	id varchar(36) PRIMARY KEY,
@@ -10,9 +12,13 @@ create table Usuario (
 
 )
 
+select * from Usuario 
+
 Alter table Usuario Modify Column senha varchar(255)
 
-select * from Usuario
+select * from Resposta
+
+select * from Requisicao where id_usuario = "4903961f-1823-4f7b-93b0-104cd1878fcb"
 
 create table Requisicao (
 
@@ -68,5 +74,20 @@ create table AppSuportado(
 
 );
 
-
+select * from CategoriaAtalho
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (1, 'Comida');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (2, 'Transporte');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (3, 'Saúde');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (4, 'Lazer');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (5, 'Compras');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (6, 'Farmácia');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (7, 'Banco');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (8, 'Mensagens');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (9, 'Redes Sociais');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (10, 'Notícias');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (12, 'Entretenimento');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (13, 'Chamadas');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (15, 'Serviços Públicos');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (16, 'Emergência');
+INSERT INTO CategoriaAtalho (id, categoria) VALUES (17, 'Agenda');
 
