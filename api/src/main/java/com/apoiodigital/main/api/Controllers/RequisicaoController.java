@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/requisicao")
@@ -25,7 +26,7 @@ public class RequisicaoController {
     }
 
     @GetMapping("/carregar/usuario/todos")
-    public ResponseEntity<List<Requisicao>> CarregarListHistorico(@RequestParam Usuario usuario){
-        return ResponseEntity.ok().body(requisicaoService.carregarRequisicaoPeloUsuario(usuario));
+    public ResponseEntity<List<Requisicao>> CarregarListHistorico(@RequestParam UUID id_usuario){
+        return ResponseEntity.ok().body(requisicaoService.carregarRequisicaoPeloUsuario(id_usuario));
     }
 }

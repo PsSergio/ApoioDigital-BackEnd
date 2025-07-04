@@ -7,6 +7,8 @@ import com.apoiodigital.main.api.Services.RespostaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/resposta/")
 public class RespostaController {
@@ -18,8 +20,8 @@ public class RespostaController {
     }
 
     @PostMapping("/exigir")
-    public ResponseEntity<RespostaResponse> ExigirRespostaDaIA(@RequestParam Requisicao requisicao, @RequestBody CompoentsAndContextDTO body){
-        return ResponseEntity.ok().body(respostaService.salvarResposta(requisicao, body));
+    public ResponseEntity<RespostaResponse> ExigirRespostaDaIA(@RequestParam UUID id_requisicao, @RequestBody CompoentsAndContextDTO body){
+        return ResponseEntity.ok().body(respostaService.salvarResposta(id_requisicao, body));
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/atalho")
@@ -20,17 +21,17 @@ public class AtalhoController {
     }
 
     @PostMapping(path = "/criar")
-    public ResponseEntity<Atalho> criarAtalho(@RequestParam Requisicao requisicao){
-        return ResponseEntity.ok(atalhoService.criarAtalho(requisicao));
+    public ResponseEntity<Atalho> criarAtalho(@RequestParam UUID id_requisicao){
+        return ResponseEntity.ok(atalhoService.criarAtalho(id_requisicao));
     }
 
     @PostMapping(path = "/iniciar")
-    public ResponseEntity<Requisicao> iniciarAtalho(@RequestParam Atalho atalho){
-        return ResponseEntity.ok(atalhoService.iniciarAtalho(atalho));
+    public ResponseEntity<Requisicao> iniciarAtalho(@RequestParam UUID id_atalho){
+        return ResponseEntity.ok(atalhoService.iniciarAtalho(id_atalho));
     }
 
     @GetMapping(path = "/carregar")
-    public ResponseEntity<List<Atalho>> carregarAtalhos(@RequestParam Usuario usuario){
-        return ResponseEntity.ok(atalhoService.carregarAtalhos(usuario));
+    public ResponseEntity<List<Atalho>> carregarAtalhos(@RequestParam UUID id_usuario){
+        return ResponseEntity.ok(atalhoService.carregarAtalhos(id_usuario));
     }
 }

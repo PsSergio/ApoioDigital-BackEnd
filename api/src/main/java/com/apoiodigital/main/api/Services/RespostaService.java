@@ -6,25 +6,32 @@ import com.apoiodigital.main.api.Dtos.IdentifierComponentDTO;
 import com.apoiodigital.main.api.Dtos.RespostaResponse;
 import com.apoiodigital.main.api.Models.Requisicao;
 import com.apoiodigital.main.api.Models.Resposta;
+import com.apoiodigital.main.api.Repositories.RequisicaoRepository;
 import com.apoiodigital.main.api.Repositories.RespostaRepository;
+import com.apoiodigital.main.api.exception.RequisicaoDoesNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class RespostaService {
 
     private final RespostaRepository respostaRepository;
+    private final RequisicaoRepository requisicaoRepository;
 
-    public RespostaService(RespostaRepository respostaRepository) {
+    public RespostaService(RespostaRepository respostaRepository, RequisicaoRepository requisicaoRepository) {
         this.respostaRepository = respostaRepository;
+        this.requisicaoRepository = requisicaoRepository;
     }
 
-    public RespostaResponse salvarResposta(Requisicao requisicao, CompoentsAndContextDTO componentsAndContext){
-        // exemplo de resposta esperada pela IA
+    public RespostaResponse salvarResposta(UUID id_requisicao, CompoentsAndContextDTO componentsAndContext){
+        var optRequisicao = requisicaoRepository.findById(id_requisicao);
+
+        if(optRequisicao.isEmpty()) throw new RequisicaoDoesNotExistException();
 
         var resposta = new Resposta();
-        resposta.setRequsicao(requisicao);
+        resposta.setRequsicao(optRequisicao.get());
         resposta.setMensagem("Clique neste aplicativo"); // devera vir da IA
         resposta.setTimestamp(LocalDateTime.now());
 
