@@ -2,6 +2,7 @@ package com.apoiodigital.main.api.Services;
 
 import com.apoiodigital.main.api.Models.Usuario;
 import com.apoiodigital.main.api.Repositories.UsuarioRepository;
+import com.apoiodigital.main.api.exception.TelefoneAlreayExistsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class UsuarioService {
     }
 
     public Usuario salvarUsuario(Usuario model){
+
+        var doesUserExists = usuarioRepository.findByTelefone(model.getTelefone()).isPresent();
+
+        if(doesUserExists) throw new TelefoneAlreayExistsException();
+
         model.validarSenha();
         var senhaEncriptografada = encriptografarSenha(model);
         model.setSenha( senhaEncriptografada );
@@ -29,9 +35,9 @@ public class UsuarioService {
 
     public Boolean validarLogin(String senha, String telefone){
         var optUsuario =  usuarioRepository.findByTelefone(telefone);
+
         if(optUsuario.isEmpty()){
             return false;
-            // trhow exc
         }
 
         return passwordEncoder.matches( senha, optUsuario.get().getSenha() );

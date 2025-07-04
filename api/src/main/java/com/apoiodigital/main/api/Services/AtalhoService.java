@@ -43,4 +43,11 @@ public class AtalhoService {
         return requisicaoRepository.save(requisicao);
     }
 
+    public List<Atalho> carregarAtalhos(Usuario usuario){
+        var atalhos = atalhoRepository.findByUsuario(usuario);
+
+        if(atalhos.size() < 3) return atalhos.subList(0, atalhos.size());
+        return atalhos.subList(0, 3);
+    }
+
 }

@@ -16,7 +16,7 @@ select * from Usuario
 
 Alter table Usuario Modify Column senha varchar(255)
 
-select * from Resposta
+select * from Atalho
 
 select * from Requisicao where id_usuario = "4903961f-1823-4f7b-93b0-104cd1878fcb"
 
