@@ -25,7 +25,7 @@ public class UsuarioController {
     @GetMapping("/login")
     public ResponseEntity<Boolean> login(@RequestParam String telefone, @RequestParam String senha) {
         var isValid = usuarioService.validarLogin(senha, telefone);
-//        var httpStatus = isValid ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+
         if(!isValid) throw new InvalidCredentialsException();
 
         return ResponseEntity.status(HttpStatus.OK).body(true);

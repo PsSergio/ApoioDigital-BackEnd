@@ -26,7 +26,7 @@ public class RequisicaoController {
     }
 
     @GetMapping("/carregar/usuario/todos")
-    public ResponseEntity<List<Requisicao>> CarregarListHistorico(@RequestParam UUID id_usuario){
+    public ResponseEntity<List<Requisicao>> carregarListaHistorico(@RequestParam UUID id_usuario){
         return ResponseEntity.ok().body(requisicaoService.carregarRequisicaoPeloUsuario(id_usuario));
     }
 }

@@ -36,7 +36,12 @@ public class RespostaService {
         resposta.setTimestamp(LocalDateTime.now());
 
         var respostaDB = respostaRepository.save(resposta);
-        var identifierComp = new IdentifierComponentDTO(1, new BoundsDTO(200.0, 300.0, 500.0, 600.0)); // devera vir da IA
+
+        var viewID = 2; // devera vir da IA
+
+        var bounds = componentsAndContext.components().get(viewID-1).bounds();
+
+        var identifierComp = new IdentifierComponentDTO(viewID, bounds);
 
         return new RespostaResponse(respostaDB, identifierComp);
     }
