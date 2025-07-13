@@ -3,6 +3,7 @@ package com.apoiodigital.main.api.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Table(name = "Atalho")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Atalho {
 
     @Id
@@ -35,5 +37,12 @@ public class Atalho {
 
     @Column(name = "prompt", columnDefinition = "VARCHAR(500)")
     private String prompt;
+
+    public Atalho(Usuario usuario, CategoriaAtalho categoriaAtalho, String titulo, String prompt) {
+        this.usuario = usuario;
+        this.categoriaAtalho = categoriaAtalho;
+        this.titulo = titulo;
+        this.prompt = prompt;
+    }
 
 }

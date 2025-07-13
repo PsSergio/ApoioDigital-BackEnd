@@ -13,6 +13,7 @@ import com.apoiodigital.main.api.exception.UsuarioDoesNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,18 +32,31 @@ public class AtalhoService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    public void salvarAtalhosIniciais(List<Requisicao> reqs){
+        var catComida = categoriaAtalhoRepository.findById(1L).get();
+        var catTransporte = categoriaAtalhoRepository.findById(2L).get();
+        var catMensagem = categoriaAtalhoRepository.findById(8L).get();
+
+        var atlh1 = new Atalho(reqs.get(0).getUsuario(), catComida, "Quero pedir comida", reqs.get(0).getPrompt());
+        var atlh2 = new Atalho(reqs.get(1).getUsuario(), catTransporte, "Quero pedir carona", reqs.get(1).getPrompt());
+        var atlh3 = new Atalho(reqs.get(2).getUsuario(), catMensagem, "Quero mandar mensagem", reqs.get(2).getPrompt());
+
+        var atlhs = Arrays.asList(atlh1, atlh2, atlh3);
+        atalhoRepository.saveAll(atlhs);
+
+    }
+
     public Atalho criarAtalho(UUID id_requisicao) {
         var optRequisicao =  requisicaoRepository.findById(id_requisicao);
         if(optRequisicao.isEmpty()) throw new RequisicaoDoesNotExistException();
         var requisicao = optRequisicao.get();
 
-        Atalho atalho = new Atalho();
-        atalho.setPrompt(requisicao.getPrompt());
-        atalho.setTitulo("Quero pedir comida"); // devera vir da IA atraves de um endpoint q recebe o prompt
-        atalho.setUsuario(requisicao.getUsuario());
+        var prompt = requisicao.getPrompt();
+        var usuario = requisicao.getUsuario();
+        var titulo = "Quero pedir comida"; // devera vir da IA atraves de um endpoint q recebe o prompt
+        var categoria = categoriaAtalhoRepository.findById(1L).get(); // devera vir da IA tbm
 
-        var categoria = categoriaAtalhoRepository.findById(1L); // devera vir da IA tbm
-        atalho.setCategoriaAtalho(categoria.get());
+        Atalho atalho = new Atalho(usuario, categoria, titulo, prompt);
 
         return atalhoRepository.save(atalho);
     }

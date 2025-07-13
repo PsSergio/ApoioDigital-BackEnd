@@ -1,10 +1,8 @@
 package com.apoiodigital.main.api.Services;
 
-import com.apoiodigital.main.api.Dtos.BoundsDTO;
 import com.apoiodigital.main.api.Dtos.CompoentsAndContextDTO;
 import com.apoiodigital.main.api.Dtos.IdentifierComponentDTO;
 import com.apoiodigital.main.api.Dtos.RespostaResponse;
-import com.apoiodigital.main.api.Models.Requisicao;
 import com.apoiodigital.main.api.Models.Resposta;
 import com.apoiodigital.main.api.Repositories.RequisicaoRepository;
 import com.apoiodigital.main.api.Repositories.RespostaRepository;

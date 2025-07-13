@@ -17,7 +17,8 @@ select * from Usuario
 Alter table Usuario Modify Column senha varchar(255)
 
 select * from Atalho
-
+select * from CategoriaAtalho
+select * from Requisicao
 select * from Requisicao where id_usuario = "4903961f-1823-4f7b-93b0-104cd1878fcb"
 
 create table Requisicao (
