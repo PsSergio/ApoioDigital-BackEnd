@@ -9,8 +9,14 @@ import com.apoiodigital.main.api.Repositories.RespostaRepository;
 import com.apoiodigital.main.api.exception.RequisicaoDoesNotExistException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.net.URI;
+import java.net.http.HttpClient;
 
 @Service
 public class RespostaService {
@@ -23,25 +29,24 @@ public class RespostaService {
         this.requisicaoRepository = requisicaoRepository;
     }
 
-    public RespostaResponse salvarResposta(UUID id_requisicao, CompoentsAndContextDTO componentsAndContext){
-        var optRequisicao = requisicaoRepository.findById(id_requisicao);
+    public Resposta salvarResposta(Resposta resposta){
 
-        if(optRequisicao.isEmpty()) throw new RequisicaoDoesNotExistException();
-
-        var resposta = new Resposta();
-        resposta.setRequsicao(optRequisicao.get());
-        resposta.setMensagem("Clique neste aplicativo"); // devera vir da IA
-        resposta.setTimestamp(LocalDateTime.now());
-
-        var respostaDB = respostaRepository.save(resposta);
-
-        var viewID = 2; // devera vir da IA
-
-        var bounds = componentsAndContext.components().get(viewID-1).bounds();
-
-        var identifierComp = new IdentifierComponentDTO(viewID, bounds);
-
-        return new RespostaResponse(respostaDB, identifierComp);
+        return respostaRepository.save(resposta);
+    }
+    public String responseFlask(UUID id_requisicao, String infoCriptografada){
+        String uri = "http://localhost:5000/api/assist";
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .POST(HttpRequest.BodyPublishers.ofString(infoCriptografada))
+                .header("Content-Type", "application/json")
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return null;
+        }
     }
 
 }

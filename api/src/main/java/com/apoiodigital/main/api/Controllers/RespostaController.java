@@ -3,6 +3,7 @@ package com.apoiodigital.main.api.Controllers;
 import com.apoiodigital.main.api.Dtos.CompoentsAndContextDTO;
 import com.apoiodigital.main.api.Dtos.RespostaResponse;
 import com.apoiodigital.main.api.Models.Requisicao;
+import com.apoiodigital.main.api.Models.Resposta;
 import com.apoiodigital.main.api.Services.RespostaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,19 @@ public class RespostaController {
     }
 
     @PostMapping("/exigir")
-    public ResponseEntity<RespostaResponse> ExigirRespostaDaIA(@RequestParam UUID id_requisicao, @RequestBody CompoentsAndContextDTO body){
-        return ResponseEntity.ok().body(respostaService.salvarResposta(id_requisicao, body));
+    public ResponseEntity<String> exigirRespostaDaIA(@RequestParam UUID id_requisicao, @RequestBody String body){
+        var response = respostaService.responseFlask(id_requisicao, body);
+        if(!response.isEmpty()){
+            return ResponseEntity.ok().body(response);
+        }else{
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PostMapping("/salvar")
+    public ResponseEntity<Resposta> salvarResposta(@RequestBody Resposta resposta){
+        var response = respostaService.salvarResposta(resposta);
+        return ResponseEntity.ok(response);
     }
 
 }
