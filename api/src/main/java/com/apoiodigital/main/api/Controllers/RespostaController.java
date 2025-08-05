@@ -1,14 +1,11 @@
 package com.apoiodigital.main.api.Controllers;
 
-import com.apoiodigital.main.api.Dtos.CompoentsAndContextDTO;
-import com.apoiodigital.main.api.Dtos.RespostaResponse;
-import com.apoiodigital.main.api.Models.Requisicao;
+import com.apoiodigital.main.api.Dtos.IARequestDTO;
+import com.apoiodigital.main.api.Dtos.IAResponseDTO;
 import com.apoiodigital.main.api.Models.Resposta;
 import com.apoiodigital.main.api.Services.RespostaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/resposta/")
@@ -21,13 +18,10 @@ public class RespostaController {
     }
 
     @PostMapping("/exigir")
-    public ResponseEntity<String> exigirRespostaDaIA(@RequestParam UUID id_requisicao, @RequestBody String body){
-        var response = respostaService.responseFlask(id_requisicao, body);
-        if(!response.isEmpty()){
+    public ResponseEntity<IAResponseDTO> exigirRespostaDaIA(@RequestBody IARequestDTO body){
+        var response = respostaService.responseFlask(body);
             return ResponseEntity.ok().body(response);
-        }else{
-            return ResponseEntity.internalServerError().build();
-        }
+
     }
 
     @PostMapping("/salvar")
